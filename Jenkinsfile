@@ -22,7 +22,7 @@ pipeline {
 
                 sh 'docker build -t fsapp .'
 
-                sh 'docker build -t mynginx -f Dockerfile.nginx .'
+                sh 'docker build -t myapp -f Dockerfile.nginx .'
 
             }
 
@@ -34,7 +34,7 @@ pipeline {
 
                 sh 'docker run -d --name flask-app --network new-network fsapp:latest'
 
-                sh 'docker run -d -p 80:80 --name mynginx --network new-network mynginx:latest'
+                sh 'docker run -d -p 80:80 --name myapp --network new-network myapp:latest'
 
             }
 
