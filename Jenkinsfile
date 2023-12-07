@@ -20,9 +20,9 @@ pipeline {
 
             steps {
 
-                sh 'docker build -t faizashahid/fsapp .'
+                sh 'docker build -t faizashahid/fsapp:latest -t faizashahid/fsapp:v${BUILD_NUMBER} .'
 
-                sh 'docker build -t faizashahid/mynginx ./nginx'
+                sh 'docker build -t faizashahid/mynginx latest -t faizashahid/mynginx:v${BUILD_NUMBER} ./nginx'
 
             }
 
@@ -33,9 +33,10 @@ pipeline {
             steps {
 
                 sh '''
-                docker push faizashahid/fsapp
-
-                docker push faizashahid/mynginx
+                docker push faizashahid/fsapp:latest
+                docker push faizashahid/fsapp:v${BUILD_NUMBER}
+                docker push faizashahid/mynginx:latest
+                docker push faizashahid/fsapp:v${BUILD_NUMBER}
                 '''
             }
 
