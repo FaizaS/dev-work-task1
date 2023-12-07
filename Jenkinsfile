@@ -9,7 +9,6 @@ pipeline {
             steps {
 
                 sh 'docker rm -f $(docker ps -qa) || true'
-
                 sh 'docker network create new-network || true'
 
             }
@@ -21,7 +20,6 @@ pipeline {
             steps {
 
                 sh 'docker build -t faizashahid/fsapp:latest -t faizashahid/fsapp:v${BUILD_NUMBER} .'
-
                 sh 'docker build -t faizashahid/mynginx:latest -t faizashahid/mynginx:v${BUILD_NUMBER} ./nginx'
 
             }
