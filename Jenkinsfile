@@ -7,10 +7,11 @@ pipeline {
          stage('Init') {
 
             steps {
-
-                sh 'docker rm -f $(docker ps -qa) || true'
-                sh 'docker network create new-network || true'
-
+                sh '''
+                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.23 << EOF    
+                sh docker rm -f $(docker ps -qa) || true
+                sh docker network create new-network || true
+                '''
             }
 
         }
@@ -43,11 +44,11 @@ pipeline {
         stage('Deploy') {
 
             steps {
-
-                sh 'docker run -d --name fsapp --network new-network faizashahid/fsapp:latest'
-
-                sh 'docker run -d -p 80:80 --name mynginx --network new-network faizashahid/mynginx:latest'
-
+                sh '''
+                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.23 << EOF
+                sh docker run -d --name fsapp --network new-network faizashahid/fsapp:latest
+                sh docker run -d -p 80:80 --name mynginx --network new-network faizashahid/mynginx:latest
+                '''
             }
 
         }
