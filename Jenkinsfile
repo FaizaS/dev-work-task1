@@ -22,7 +22,7 @@ pipeline {
 
                 sh 'docker build -t fsapp .'
 
-                sh 'docker build -t mynginx -f Dockerfile.nginx .'
+                sh 'docker build -t mynginx -f Dockerfile ./nginx'
 
             }
 
