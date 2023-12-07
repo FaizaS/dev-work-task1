@@ -32,7 +32,7 @@ pipeline {
 
             steps {
 
-                sh 'docker run -d --name flask-app --network new-network fsapp:latest'
+                sh 'docker run -d --name fsapp --network new-network fsapp:latest'
 
                 sh 'docker run -d -p 80:80 --name mynginx --network new-network mynginx:latest'
 
