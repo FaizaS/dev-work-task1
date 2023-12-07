@@ -20,10 +20,23 @@ pipeline {
 
             steps {
 
-                sh 'docker build -t fsapp .'
+                sh 'docker build -t faizashahid/fsapp .'
 
-                sh 'docker build -t mynginx ./nginx'
+                sh 'docker build -t faizashahid/mynginx ./nginx'
 
+            }
+
+        }
+        
+        stage('Push') {
+
+            steps {
+
+                sh '''
+                docker push faizashahid/fsapp
+
+                docker push faizashahid/mynginx
+                '''
             }
 
         }
@@ -32,9 +45,9 @@ pipeline {
 
             steps {
 
-                sh 'docker run -d --name fsapp --network new-network fsapp:latest'
+                sh 'docker run -d --name fsapp --network new-network faizashahid/fsapp:latest'
 
-                sh 'docker run -d -p 80:80 --name mynginx --network new-network mynginx:latest'
+                sh 'docker run -d -p 80:80 --name mynginx --network new-network faizashahid/mynginx:latest'
 
             }
 
